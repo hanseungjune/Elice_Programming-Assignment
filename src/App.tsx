@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBox from './components/SearchBox';
 import Nav from './components/Nav';
 import styled, { createGlobalStyle } from 'styled-components';
+import FilterComponent from './components/FilterComponent';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -52,6 +53,7 @@ function App() {
       <CourseSection>
         <CourseSectionTitle>과목</CourseSectionTitle>
         <SearchBox />
+        <FilterComponent />
       </CourseSection>
     </>
   );

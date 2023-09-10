@@ -3,13 +3,13 @@ import { FaSearch } from 'react-icons/fa';
 import styled from 'styled-components';
 
 interface SearchBoxContainerProps {
-  isClicked: boolean;
+  $isClicked: boolean;
 }
 
 export const SearchBoxContainer = styled.section<SearchBoxContainerProps>`
   border: 1px solid
-    ${({ isClicked }) =>
-      isClicked ? 'rgb(82, 79, 161)' : 'rgb(201, 202, 204)'};
+    ${({ $isClicked }) =>
+      $isClicked ? 'rgb(82, 79, 161)' : 'rgb(201, 202, 204)'};
   background-color: white;
   width: 100%;
   height: 46px;
@@ -46,7 +46,7 @@ const SearchBox = () => {
   }, [title]);
 
   return (
-    <SearchBoxContainer isClicked={isClicked}>
+    <SearchBoxContainer $isClicked={isClicked}>
       <SearchBoxLabel
         htmlFor="search-box"
         onClick={() => setIsClicked(true)}
