@@ -5,6 +5,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 import FilterComponent from './components/FilterComponent';
 import CourseListComponent from './components/CourseListComponent';
 import PaginationComponent from './components/PaginationComponent';
+import { Provider } from 'react-redux';
+import store from './store';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -49,7 +51,7 @@ export const CourseSectionTitle = styled.h1`
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyles />
       <Nav />
       <CourseSection>
@@ -59,7 +61,7 @@ function App() {
         <CourseListComponent />
         <PaginationComponent />
       </CourseSection>
-    </>
+    </Provider>
   );
 }
 

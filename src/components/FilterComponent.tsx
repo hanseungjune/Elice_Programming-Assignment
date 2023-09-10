@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import {
+  MyThunkDispatch,
+  fetchCoursesWithFilters,
+  toggleFree,
+  togglePaid,
+} from '../actions';
+import { getAPIURL } from '../utils/utils';
 
 export const FilterBoxContainer = styled.section`
   border: 1px solid rgb(201, 202, 204);
@@ -70,8 +79,19 @@ export const FilterPayedButton = styled.button<FilterPayedButtonProps>`
 `;
 
 const FilterComponent = () => {
-  const [isFree, setIsFree] = useState(false);
-  const [isPayed, setIsPayed] = useState(false);
+  const dispatch = useDispatch<MyThunkDispatch>();
+  const { isFreeSelected, isPaidSelected, title } = useSelector(
+    (state: {
+      isFreeSelected: boolean;
+      isPaidSelected: boolean;
+      title: string;
+    }) => state,
+  );
+
+  const handleFilterClick = (toggle: () => { type: string }) => {
+    dispatch(toggle());
+    dispatch(fetchCoursesWithFilters(title, 1));
+  };
 
   return (
     <FilterBoxContainer>
@@ -80,18 +100,14 @@ const FilterComponent = () => {
       </FilterBoxTitle>
       <FilterBoxButtons>
         <FilterFreeButton
-          $isFree={isFree}
-          onClick={() => {
-            setIsFree(!isFree);
-          }}
+          $isFree={isFreeSelected}
+          onClick={() => handleFilterClick(toggleFree)}
         >
           무료
         </FilterFreeButton>
         <FilterPayedButton
-          $isPayed={isPayed}
-          onClick={() => {
-            setIsPayed(!isPayed);
-          }}
+          $isPayed={isPaidSelected}
+          onClick={() => handleFilterClick(togglePaid)}
         >
           유료
         </FilterPayedButton>
