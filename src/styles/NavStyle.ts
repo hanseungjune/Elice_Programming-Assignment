@@ -6,6 +6,9 @@ export const Container = styled.section`
   background-color: white;
   position: fixed;
   top: 0;
+
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const ContainerDummy = styled.div`
