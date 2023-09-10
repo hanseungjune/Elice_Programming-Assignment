@@ -37,7 +37,7 @@ export const SearchBoxInput = styled.input`
   background-color: white;
 `;
 
-const SearchBox = () => {
+const SearchBoxComponent = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [title, setTitle] = useState<string>('');
 
@@ -67,4 +67,4 @@ const SearchBox = () => {
   );
 };
 
-export default SearchBox;
+export default SearchBoxComponent;

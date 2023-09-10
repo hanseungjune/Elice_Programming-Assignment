@@ -57,14 +57,16 @@ interface FilterPayedButtonProps {
 
 export const FilterFreeButton = styled.button<FilterFreeButtonProps>`
   background-color: ${({ $isFree }) =>
-    $isFree ? 'rgb(82, 79, 161)' : 'white'};
-  color: ${({ $isFree }) => ($isFree ? 'white' : 'rgb(82, 79, 161)')};
+    $isFree ? 'rgb(82, 79, 161)' : 'rgb(242, 242, 242)'};
+  color: ${({ $isFree }) =>
+    $isFree ? 'rgb(242, 242, 242)' : 'rgb(82, 79, 161)'};
 `;
 
 export const FilterPayedButton = styled.button<FilterPayedButtonProps>`
   background-color: ${({ $isPayed }) =>
-    $isPayed ? 'rgb(82, 79, 161)' : 'white'};
-  color: ${({ $isPayed }) => ($isPayed ? 'white' : 'rgb(82, 79, 161)')};
+    $isPayed ? 'rgb(82, 79, 161)' : 'rgb(242, 242, 242)'};
+  color: ${({ $isPayed }) =>
+    $isPayed ? 'rgb(242, 242, 242)' : 'rgb(82, 79, 161)'};
 `;
 
 const FilterComponent = () => {

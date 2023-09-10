@@ -1,8 +1,9 @@
 import React from 'react';
-import SearchBox from './components/SearchBox';
+import SearchBox from './components/SearchBoxComponent';
 import Nav from './components/Nav';
 import styled, { createGlobalStyle } from 'styled-components';
 import FilterComponent from './components/FilterComponent';
+import CourseListComponent from './components/CourseListComponent';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -54,6 +55,7 @@ function App() {
         <CourseSectionTitle>과목</CourseSectionTitle>
         <SearchBox />
         <FilterComponent />
+        <CourseListComponent />
       </CourseSection>
     </>
   );
