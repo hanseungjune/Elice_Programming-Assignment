@@ -1,9 +1,10 @@
 import React from 'react';
-import SearchBox from './components/SearchBoxComponent';
+import SearchBoxComponent from './components/SearchBoxComponent';
 import Nav from './components/Nav';
 import styled, { createGlobalStyle } from 'styled-components';
 import FilterComponent from './components/FilterComponent';
 import CourseListComponent from './components/CourseListComponent';
+import PaginationComponent from './components/PaginationComponent';
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -53,9 +54,10 @@ function App() {
       <Nav />
       <CourseSection>
         <CourseSectionTitle>과목</CourseSectionTitle>
-        <SearchBox />
+        <SearchBoxComponent />
         <FilterComponent />
         <CourseListComponent />
+        <PaginationComponent />
       </CourseSection>
     </>
   );
