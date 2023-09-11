@@ -48,11 +48,11 @@ export const FilterBoxButtons = styled.div`
 
 type FilterFreeButtonProps = {
   $isFree: boolean;
-}
+};
 
 type FilterPayedButtonProps = {
   $isPayed: boolean;
-}
+};
 
 export const FilterFreeButton = styled.button<FilterFreeButtonProps>`
   background-color: ${({ $isFree }) =>

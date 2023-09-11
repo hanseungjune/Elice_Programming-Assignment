@@ -11,10 +11,13 @@ import {
   PageNumber,
   PaginationContainer,
 } from '../styles/PaginationComponentStyle';
+import { RootState } from './CourseListComponent';
 
 const PaginationComponent = () => {
   const dispatch = useDispatch<MyThunkDispatch>();
-  const { count, title, currentPage } = useSelector((state: any) => state);
+  const { count, title, currentPage } = useSelector(
+    (state: RootState) => state,
+  );
   const totalPages = Math.ceil(count / 20);
 
   // 시작 및 끝 페이지 설정

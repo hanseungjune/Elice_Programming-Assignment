@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export type SearchBoxContainerProps = {
   $isClicked: boolean;
-}
+};
 
 export const SearchBoxContainer = styled.section<SearchBoxContainerProps>`
   border: 1px solid

@@ -18,7 +18,7 @@ export type CourseType = {
   discounted_price: number;
   discount_begin_datetime: number;
   price: string;
-}
+};
 
 export type RootState = {
   courses: CourseType[];
@@ -27,7 +27,7 @@ export type RootState = {
   isPaidSelected: boolean;
   title: string;
   currentPage: number;
-}
+};
 
 const CourseListComponent = () => {
   const { courses, count } = useSelector((state: RootState) => state);
