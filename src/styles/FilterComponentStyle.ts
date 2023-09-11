@@ -46,11 +46,11 @@ export const FilterBoxButtons = styled.div`
   }
 `;
 
-interface FilterFreeButtonProps {
+type FilterFreeButtonProps = {
   $isFree: boolean;
 }
 
-interface FilterPayedButtonProps {
+type FilterPayedButtonProps = {
   $isPayed: boolean;
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   CourseCount,
@@ -8,7 +8,7 @@ import {
   CourseTitle,
 } from '../styles/CourseListComponentStyle';
 
-interface CourseType {
+export type CourseType = {
   id: number;
   taglist: string[];
   title: string;
@@ -20,14 +20,17 @@ interface CourseType {
   price: string;
 }
 
-const CourseListComponent = () => {
-  const { courses, count } = useSelector((state: any) => state);
+export type RootState = {
+  courses: CourseType[];
+  count: number;
+  isFreeSelected: boolean;
+  isPaidSelected: boolean;
+  title: string;
+  currentPage: number;
+}
 
-  useEffect(() => {
-    courses?.forEach((course: CourseType) => {
-      console.log(course.discounted_price);
-    });
-  }, [courses]);
+const CourseListComponent = () => {
+  const { courses, count } = useSelector((state: RootState) => state);
 
   return (
     <>

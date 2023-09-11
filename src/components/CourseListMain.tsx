@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import SearchBoxComponent from './SearchBoxComponent';
 import FilterComponent from './FilterComponent';
 import CourseListComponent from './CourseListComponent';
 import PaginationComponent from './PaginationComponent';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CourseSection, CourseSectionTitle } from '../styles/AppStyle';
 import { getInitialStateFromQuery } from '../utils/utils';
 import {
