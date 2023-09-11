@@ -3,9 +3,9 @@ import {
   SET_TITLE,
   TOGGLE_FREE,
   TOGGLE_PAID,
-  FETCH_COURSES,
   SET_COURSES,
   SET_COURSES_COUNT,
+  SET_CURRENT_PAGE,
 } from './types';
 import { getAPIURL } from '../utils/utils';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
@@ -45,6 +45,11 @@ export const fetchCourses = (url: string) => async (dispatch: any) => {
     console.error(error);
   }
 };
+
+export const setCurrentPage = (page: number) => ({
+  type: SET_CURRENT_PAGE,
+  payload: page,
+});
 
 // 나중에 받아오고 타입 바꾸기
 export const fetchCoursesWithFilters =

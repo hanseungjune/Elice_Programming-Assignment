@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import {
+  MyThunkDispatch,
+  fetchCoursesWithFilters,
+  setCurrentPage,
+} from '../actions';
 
 export const PaginationContainer = styled.section`
   display: flex;
@@ -35,26 +42,46 @@ export const PageNumber = styled.span<PageNumberProps>`
 `;
 
 const PaginationComponent = () => {
-  const [isCurrent, setIsCurrent] = useState(1);
+  const dispatch = useDispatch<MyThunkDispatch>();
+  const { count, title, currentPage } = useSelector((state: any) => state);
+  const totalPages = Math.ceil(count / 20);
+
+  // 시작 및 끝 페이지 설정
+  let startPage = currentPage - 2 > 0 ? currentPage - 2 : 1;
+  const endPage = startPage + 4 <= totalPages ? startPage + 4 : totalPages;
+
+  if (endPage - startPage < 4 && startPage > 1) {
+    startPage = endPage - 4;
+  }
+
+  const handlePageChange = (pageNum: number) => {
+    dispatch(setCurrentPage(pageNum));
+    dispatch(fetchCoursesWithFilters(title, pageNum));
+  };
 
   return (
     <PaginationContainer>
       <PageArrow
-        onClick={() => setIsCurrent((prev) => (prev > 3 ? prev - 1 : prev))}
+        onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
       >
         {'<'}
       </PageArrow>
-      {[3, 4, 5, 6, 7].map((num) => (
+      {Array.from(
+        { length: endPage - startPage + 1 },
+        (_, idx) => startPage + idx,
+      ).map((num) => (
         <PageNumber
           key={num}
-          $isActive={isCurrent === num}
-          onClick={() => setIsCurrent(num)}
+          $isActive={currentPage === num}
+          onClick={() => handlePageChange(num)}
         >
           {num}
         </PageNumber>
       ))}
       <PageArrow
-        onClick={() => setIsCurrent((prev) => (prev < 7 ? prev + 1 : prev))}
+        onClick={() =>
+          currentPage < totalPages && handlePageChange(currentPage + 1)
+        }
       >
         {'>'}
       </PageArrow>

@@ -4,6 +4,7 @@ import {
   TOGGLE_FREE,
   TOGGLE_PAID,
   SET_COURSES_COUNT,
+  SET_CURRENT_PAGE,
 } from '../actions/types';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   count: 0,
   isFreeSelected: false,
   isPaidSelected: false,
+  currentPage: 1,
 };
 
 export type SetTitleAction = {
@@ -37,12 +39,18 @@ export type TogglePaidAction = {
   type: 'TOGGLE_PAID';
 };
 
+export type SetCurrentPageAction = {
+  type: 'SET_CURRENT_PAGE';
+  payload: number;
+};
+
 export type actionType =
   | SetTitleAction
   | SetCoursesAction
   | SetCoursesCountAction
   | ToggleFreeAction
-  | TogglePaidAction;
+  | TogglePaidAction
+  | SetCurrentPageAction;
 
 export const courseReducer = (state = initialState, action: actionType) => {
   switch (action.type) {
@@ -56,6 +64,8 @@ export const courseReducer = (state = initialState, action: actionType) => {
       return { ...state, isFreeSelected: !state.isFreeSelected };
     case TOGGLE_PAID:
       return { ...state, isPaidSelected: !state.isPaidSelected };
+    case SET_CURRENT_PAGE:
+      return { ...state, currentPage: action.payload };
     default:
       return { ...state };
   }
