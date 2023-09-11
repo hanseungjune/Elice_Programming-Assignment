@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FilterBoxContainer = styled.section`
   border: 1px solid rgb(201, 202, 204);

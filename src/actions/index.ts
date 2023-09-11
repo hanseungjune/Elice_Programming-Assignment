@@ -10,14 +10,46 @@ import {
 import { getAPIURL } from '../utils/utils';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { getQueryParams } from '../utils/utils';
 
 export type MyThunkResult<R> = ThunkAction<R, any, undefined, AnyAction>;
 export type MyThunkDispatch = ThunkDispatch<any, undefined, AnyAction>;
 
-export const setTitle = (title: string) => ({
-  type: SET_TITLE,
-  payload: title,
-});
+export const setCurrentPage = (page: number) => (dispatch: MyThunkDispatch) => {
+  dispatch({
+    type: SET_CURRENT_PAGE,
+    payload: page,
+  });
+
+  const currentParams = getQueryParams();
+  const prices = [];
+
+  if (currentParams.isFreeSelected) prices.push('free');
+  if (currentParams.isPaidSelected) prices.push('paid');
+
+  const newUrl = `/?keyword=${currentParams.title}&price=${prices.join(
+    ',',
+  )}&page=${page}`;
+  window.history.pushState(null, '', newUrl);
+};
+
+export const setTitle = (title: string) => (dispatch: MyThunkDispatch) => {
+  dispatch({
+    type: SET_TITLE,
+    payload: title,
+  });
+
+  const currentParams = getQueryParams();
+  const prices = [];
+
+  if (currentParams.isFreeSelected) prices.push('free');
+  if (currentParams.isPaidSelected) prices.push('paid');
+
+  const newUrl = `/?keyword=${title}&price=${prices.join(',')}&page=${
+    currentParams.currentPage
+  }`;
+  window.history.pushState(null, '', newUrl);
+};
 
 // 나중에 받아오고 타입 바꾸기
 export const setCourses = (courses: any) => ({
@@ -29,8 +61,35 @@ export const setCoursesCount = (count: number) => ({
   type: SET_COURSES_COUNT,
   payload: count,
 });
-export const toggleFree = () => ({ type: TOGGLE_FREE });
-export const togglePaid = () => ({ type: TOGGLE_PAID });
+export const toggleFree = () => (dispatch: MyThunkDispatch) => {
+  dispatch({ type: TOGGLE_FREE });
+
+  const currentParams = getQueryParams();
+  const prices = [];
+
+  if (!currentParams.isFreeSelected) prices.push('free');
+  if (currentParams.isPaidSelected) prices.push('paid');
+
+  const newUrl = `/?keyword=${currentParams.title}&price=${prices.join(
+    ',',
+  )}&page=${currentParams.currentPage}`;
+  window.history.pushState(null, '', newUrl);
+};
+
+export const togglePaid = () => (dispatch: MyThunkDispatch) => {
+  dispatch({ type: TOGGLE_PAID });
+
+  const currentParams = getQueryParams();
+  const prices = [];
+
+  if (currentParams.isFreeSelected) prices.push('free');
+  if (!currentParams.isPaidSelected) prices.push('paid');
+
+  const newUrl = `/?keyword=${currentParams.title}&price=${prices.join(
+    ',',
+  )}&page=${currentParams.currentPage}`;
+  window.history.pushState(null, '', newUrl);
+};
 
 // 나중에 받아오고 타입 바꾸기
 export const fetchCourses = (url: string) => async (dispatch: any) => {
@@ -45,11 +104,6 @@ export const fetchCourses = (url: string) => async (dispatch: any) => {
     console.error(error);
   }
 };
-
-export const setCurrentPage = (page: number) => ({
-  type: SET_CURRENT_PAGE,
-  payload: page,
-});
 
 // 나중에 받아오고 타입 바꾸기
 export const fetchCoursesWithFilters =

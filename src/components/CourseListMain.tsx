@@ -6,16 +6,26 @@ import CourseListComponent from './CourseListComponent';
 import PaginationComponent from './PaginationComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import { CourseSection, CourseSectionTitle } from '../styles/AppStyle';
+import { getInitialStateFromQuery } from '../utils/utils';
+import {
+  MyThunkDispatch,
+  setTitle,
+  setCurrentPage,
+  toggleFree,
+  togglePaid,
+} from '../actions';
 
 const CourseListMain = () => {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const params = new URLSearchParams(location.search);
+  const dispatch = useDispatch<MyThunkDispatch>();
+  const { title, isFreeSelected, isPaidSelected, currentPage } =
+    getInitialStateFromQuery();
 
-  const [title, setTitle] = useState(params.get('title') || '');
-  const [page, setPage] = useState(Number(params.get('page')) || 1);
-  const [isFree, setIsFree] = useState(params.get('isFree') === 'true');
-  const [isPaid, setIsPaid] = useState(params.get('isPaid') === 'true');
+  useEffect(() => {
+    if (title) dispatch(setTitle(title));
+    if (isFreeSelected) dispatch(toggleFree());
+    if (isPaidSelected) dispatch(togglePaid());
+    dispatch(setCurrentPage(currentPage));
+  }, [dispatch]);
 
   return (
     <CourseSection>

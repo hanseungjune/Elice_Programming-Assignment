@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from 'styled-components';
 
 export const CourseCount = styled.h1`
   width: 100%;
@@ -9,17 +9,6 @@ export const CourseCount = styled.h1`
   text-align: left;
   border-bottom: 1px solid rgb(183, 183, 183);
 `;
-
-interface DummyType {
-  id: number;
-  sub: string;
-  title: string;
-  content: string;
-  imgUrl: string;
-  salePrice: string;
-  originalPrice: string;
-  salesPercent: string;
-}
 
 export const CourseListContainer = styled.ul`
   display: grid;

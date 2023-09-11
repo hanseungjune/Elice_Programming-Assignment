@@ -1,5 +1,10 @@
 import React from 'react';
-import { Container, ContainerDummy, MenuBar, OtherBar } from '../styles/NavStyle';
+import {
+  Container,
+  ContainerDummy,
+  MenuBar,
+  OtherBar,
+} from '../styles/NavStyle';
 import { FaMicrosoft } from 'react-icons/fa';
 
 const Nav = () => {

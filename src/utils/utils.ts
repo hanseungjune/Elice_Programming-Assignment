@@ -5,7 +5,6 @@ export const getAPIURL = (
   isPaid: boolean,
 ) => {
   const baseURL = 'https://api-rest.elice.io/org/academy/course/list/';
-
   const offset = (page - 1) * 20;
   const count = 20;
 
@@ -13,7 +12,7 @@ export const getAPIURL = (
     $and: [
       { title: string },
       {
-        $or: Array<{ enroll_type: number; is_free: boolean }>;
+        $or?: Array<{ enroll_type: number; is_free: boolean }>;
       },
     ];
   } = {
@@ -25,17 +24,50 @@ export const getAPIURL = (
     ],
   };
 
-  if (isFree) {
-    filterConditions.$and[1].$or.push({ enroll_type: 0, is_free: true });
-  }
+  if (isFree && isPaid) {
+    // 둘 다 선택된 경우 `$or` 조건을 제거
+    delete filterConditions.$and[1].$or;
+  } else {
+    if (isFree) {
+      filterConditions.$and[1].$or?.push({ enroll_type: 0, is_free: true });
+    }
 
-  if (isPaid) {
-    filterConditions.$and[1].$or.push({ enroll_type: 0, is_free: false });
+    if (isPaid) {
+      filterConditions.$and[1].$or?.push({ enroll_type: 0, is_free: false });
+    }
   }
 
   const filterConditionsString = encodeURIComponent(
     JSON.stringify(filterConditions),
   );
-
   return `${baseURL}?filter_conditions=${filterConditionsString}&offset=${offset}&count=${count}`;
 };
+
+export const getQueryParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  const prices = params.getAll('price');
+
+  return {
+    title: params.get('keyword') || '',
+    isFreeSelected: prices.includes('free'),
+    isPaidSelected: prices.includes('paid'),
+    currentPage: Number(params.get('page')) || 1,
+  };
+};
+
+export function getInitialStateFromQuery(): {
+  title: string;
+  isFreeSelected: boolean;
+  isPaidSelected: boolean;
+  currentPage: number;
+} {
+  const params = new URLSearchParams(window.location.search);
+  const prices = params.getAll('price');
+
+  return {
+    title: params.get('keyword') || '',
+    isFreeSelected: prices.includes('free'),
+    isPaidSelected: prices.includes('paid'),
+    currentPage: parseInt(params.get('page') || '1', 10),
+  };
+}

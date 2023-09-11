@@ -6,15 +6,9 @@ import {
   SET_COURSES_COUNT,
   SET_CURRENT_PAGE,
 } from '../actions/types';
+import { getInitialStateFromQuery } from '../utils/utils';
 
-const initialState = {
-  title: '',
-  courses: [],
-  count: 0,
-  isFreeSelected: false,
-  isPaidSelected: false,
-  currentPage: 1,
-};
+const initialState = getInitialStateFromQuery();
 
 export type SetTitleAction = {
   type: 'SET_TITLE';

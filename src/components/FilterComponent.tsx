@@ -7,7 +7,13 @@ import {
   toggleFree,
   togglePaid,
 } from '../actions';
-import { FilterBoxButtons, FilterBoxContainer, FilterBoxTitle, FilterFreeButton, FilterPayedButton } from '../styles/FilterComponentStyle';
+import {
+  FilterBoxButtons,
+  FilterBoxContainer,
+  FilterBoxTitle,
+  FilterFreeButton,
+  FilterPayedButton,
+} from '../styles/FilterComponentStyle';
 
 const FilterComponent = () => {
   const dispatch = useDispatch<MyThunkDispatch>();
@@ -19,7 +25,9 @@ const FilterComponent = () => {
     }) => state,
   );
 
-  const handleFilterClick = (toggle: () => { type: string }) => {
+  const handleFilterClick = (
+    toggle: () => (dispatch: MyThunkDispatch) => void,
+  ) => {
     dispatch(toggle());
     dispatch(fetchCoursesWithFilters(title, 1));
   };

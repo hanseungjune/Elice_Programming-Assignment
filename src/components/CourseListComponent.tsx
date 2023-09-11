@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   CourseCount,
@@ -15,18 +15,25 @@ interface CourseType {
   short_description: string;
   image_file_url: string;
   discount_rate: null | number;
-  discounted_price: string;
+  discounted_price: number;
+  discount_begin_datetime: number;
   price: string;
 }
 
 const CourseListComponent = () => {
   const { courses, count } = useSelector((state: any) => state);
 
+  useEffect(() => {
+    courses?.forEach((course: CourseType) => {
+      console.log(course.discounted_price);
+    });
+  }, [courses]);
+
   return (
     <>
       <CourseCount>전체 {count}개</CourseCount>
       <CourseListContainer>
-        {courses.map((course: CourseType) => (
+        {courses?.map((course: CourseType) => (
           <CourseList key={course.id}>
             {course.image_file_url ? (
               <img src={course.image_file_url} alt="image_file_url" />
@@ -55,7 +62,7 @@ const CourseListComponent = () => {
                 width: '90%',
               }}
             ></span>
-            {course.discount_rate !== null ? (
+            {course.discounted_price > 0 ? (
               <CoursePrice>
                 <span>
                   {Number(course.discounted_price).toLocaleString()}원
