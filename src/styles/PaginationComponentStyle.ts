@@ -31,4 +31,6 @@ export const PageNumber = styled.span<PageNumberProps>`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  ${({ $isActive }) =>
+    $isActive ? 'data-isactive: true;' : 'data-isactive: false;'}
 `;

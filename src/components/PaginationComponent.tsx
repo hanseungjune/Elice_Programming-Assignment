@@ -51,6 +51,8 @@ const PaginationComponent = () => {
         <PageNumber
           key={num}
           $isActive={currentPage === num}
+          data-testid={currentPage === num ? 'active-page' : undefined}
+          data-isactive={currentPage === num ? 'true' : 'false'}
           onClick={() => handlePageChange(num)}
         >
           {num}

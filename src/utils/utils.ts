@@ -43,18 +43,6 @@ export const getAPIURL = (
   return `${baseURL}?filter_conditions=${filterConditionsString}&offset=${offset}&count=${count}`;
 };
 
-export const getQueryParams = () => {
-  const params = new URLSearchParams(window.location.search);
-  const prices = params.getAll('price');
-
-  return {
-    title: params.get('keyword') || '',
-    isFreeSelected: prices.includes('free'),
-    isPaidSelected: prices.includes('paid'),
-    currentPage: Number(params.get('page')) || 1,
-  };
-};
-
 export function getInitialStateFromQuery(): {
   title: string;
   isFreeSelected: boolean;
